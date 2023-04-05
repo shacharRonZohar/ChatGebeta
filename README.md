@@ -5,11 +5,13 @@ This is an api wrapper, using a gpt-2 model to provide organic responses to end 
 This repository contains two branches - main, and basic, which are two almost identical api's, with one major diffrence.
 
 The main branch conatins two API's - One public facing api, that recieves msgs from the user, and makes calls to the second API, which runs the input through a self hosted gpt-2 model.
+In order to run either of the branches, follow the Installation section in their respective README
 
-The second API is hosted on railway, so you don't need to install and run it locally to run the public API, if for some reason you wish to do so, follow the "Self hosting" instructions in the installation section.
+The second API is hosted on railway, so you don't need to install and run it locally to run the public API, if for some reason you wish to do so, follow the "Self hosting" instructions in the installation section of the main branch.
 This system allows us better control over the responses, but takes considerably more "personal" resources.
 
 The basic branch contains one public facing api, that recieves msgs from the user, and outsources the model managment to a free, public, gpt-2 API.
+This system gives worse responses, but is lightweight.
 
 ## Installation
 
