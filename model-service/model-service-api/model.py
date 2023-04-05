@@ -1,20 +1,19 @@
+import functools
 import logging
-from flask import Flask, request
+
 from dotenv import load_dotenv
 
 from .services.gpt import query
-from .services.logger import logger
 
 from .schemas.chat import ChatInputSchema
-# from .services.util import log
 
-logging.basicConfig(level=logging.DEBUG)
-load_dotenv()
+from flask import (
+    Blueprint, flash, g, redirect, render_template, request, session, url_for
+)
+bp = Blueprint('model', __name__, url_prefix='/model')
 
 
-app = Flask(__name__)
-# /api/model/generate/
-@app.post('/api/model/generate/')
+@bp.post('/generate/')
 def generate():
     input_data = validate_input(request)
 
