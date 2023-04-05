@@ -30,9 +30,9 @@ COPY . /app/
 
 RUN  pip install dist/*.whl
 
-RUN pip install gunicorn
+RUN pip install waitress
 
 EXPOSE 8080
 
-CMD ["waitress-serve", "--port=8080", "model-service-api:create_app"]
+CMD ["waitress-serve",  "--call 'model-service-api:create_app"]
 
