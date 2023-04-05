@@ -6,7 +6,8 @@ from .chat import bp as chat_bp
 import logging
 
 
-def create_app(test_config=None):
+def create_app(**args):
+    print(args)
     # load_dotenv()
     # Create and configure the app.
     #  - instance_relative_config=True tells the app that if there are configuration files relative to the instance folder, they should override the default configuration.
@@ -17,12 +18,12 @@ def create_app(test_config=None):
         # port
     )
 
-    if test_config is None:
-        # Load the instance config, if it exists, when not testing.
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        # Load the test config if passed in.
-        app.config.from_mapping(test_config)
+    # if test_config is None:
+    # Load the instance config, if it exists, when not testing.
+    app.config.from_pyfile('config.py', silent=True)
+    # else:
+    # Load the test config if passed in.
+    # app.config.from_mapping(test_config)
 
     # Ensure the instance folder exists.
     try:
