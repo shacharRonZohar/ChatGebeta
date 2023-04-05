@@ -1,6 +1,9 @@
+from .services.gpt import query
 from flask import Flask, request, jsonify
+from dotenv import load_dotenv
 
-from .services.gpt import get_response
+load_dotenv()
+
 
 app = Flask(__name__)
 
@@ -13,4 +16,4 @@ def welcome():
 @app.post('/chat')
 def chat():
     message = request.json['message']
-    return {'data': get_response(message)}
+    return {'data': query(message)}
