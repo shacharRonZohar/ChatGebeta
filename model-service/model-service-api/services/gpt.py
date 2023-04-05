@@ -13,7 +13,7 @@ DEFAULT_GENERATION_SETTINGS = {
 
 # gpt2 is the predecessor of gpt3 and is a smaller model.
 # This particular version is the smallest version of the model, conatining only 124M parameters.
-model_name = "EleutherAI/gpt-j-6b"
+model_name = "gpt2"
 # The tokenizer is used to convert the input text into a format that the model can understand, and to convert the model's output back into text.
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 # The model is the actual neural network that will be used to generate the text.
