@@ -8,8 +8,8 @@ COPY . .
 # RUN python3 -m venv $VIRTUAL_ENV
 # ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-RUN pip install -r requirements.txt & \
-    pip install --upgrade wheel & \
+RUN pip install --upgrade wheel & \
+    pip install -r requirements.txt & \
     pip install --upgrade setuptools & \
     pip install -e .
 
