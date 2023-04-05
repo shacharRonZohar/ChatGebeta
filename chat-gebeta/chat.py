@@ -2,6 +2,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
+
+@app.get('/')
+def welcome():
+    return {'data': 'Welcome to ChatGebeta, a ChatGPT api wrapper'}
