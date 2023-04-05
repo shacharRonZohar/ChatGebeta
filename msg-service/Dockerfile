@@ -19,4 +19,4 @@ EXPOSE 5000
 COPY . .
 RUN pip install -e .
 
-CMD ["waitress-serve",  "--call","api:create_app","--port","5000"]
+CMD ["waitress-serve","--port","5000",  "--call","api:create_app"]

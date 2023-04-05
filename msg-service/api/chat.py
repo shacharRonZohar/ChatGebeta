@@ -11,10 +11,15 @@ from .services.logger import logger
 
 from .schemas.chat import ChatInputSchema
 # from .services.util import log
-bp = Blueprint('api', __name__, url_prefix='/chat')
+bp = Blueprint('api', __name__)
 
 
-@bp.post('/')
+@bp.get('/')
+def index():
+    return {'data': 'Welcome to ChatGebeta, a ChatGPT api wrapper'}
+
+
+@bp.post('/chat')
 def chat():
     logger.info('Request made to /chat, validating input')
     user_input = validate_input(request)
