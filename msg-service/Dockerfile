@@ -14,9 +14,9 @@ RUN /usr/local/bin/python -m pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN pip install waitress
 
-EXPOSE 5000
+# EXPOSE 5000
 
 COPY . .
 RUN pip install -e .
 
-CMD ["waitress-serve","--port","5000",  "--call","api:create_app"]
+CMD ["waitress-serve" , "--call","api:create_app"]
