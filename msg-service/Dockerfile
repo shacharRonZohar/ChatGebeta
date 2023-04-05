@@ -4,9 +4,9 @@ WORKDIR /app
 
 ENV FLASK_APP=api
 ENV FLASK_RUN_HOST=0.0.0.0
-ENV PORT = 5000
+# ENV PORT=5000
 # This will not be set here in a real app
-ENV API_TOKEN = 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
+ENV API_TOKEN=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
 
 RUN apk add --no-cache gcc musl-dev linux-headers
 
@@ -20,4 +20,4 @@ RUN pip install waitress
 COPY . .
 RUN pip install -e .
 
-CMD ["echo",$PORT]
+CMD waitress-serve --port=$PORT api:create_app
