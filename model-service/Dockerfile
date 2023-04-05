@@ -39,11 +39,11 @@ RUN pip install --upgrade wheel
 RUN pip install -r requirements.txt
 RUN pip install waitress
 
-EXPOSE 5050
+# EXPOSE 5050
 
 COPY . .
 RUN pip install -e .
 
-CMD ["waitress-serve",  "--call","api:create_app","--port","5050"]
+CMD waitress-serve --port=$PORT api:create_app
 
 # CMD ["flask", "run", "--port", "5050"]
