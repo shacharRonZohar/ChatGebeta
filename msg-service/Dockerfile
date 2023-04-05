@@ -19,4 +19,4 @@ RUN pip install waitress
 COPY . .
 RUN pip install -e .
 
-CMD ["waitress-serve" , "--call","api:create_app"]
+CMD ["waitress-serve" ,"--port",$port, "--call","api:create_app"]
