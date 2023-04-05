@@ -2,6 +2,7 @@ from os import environ
 from requests import post
 
 # See https://huggingface.co/inference-api for more information
+
 API_URL = 'https://api-inference.huggingface.co/models/gpt2'
 
 headers = {'Authorization': f"Bearer {environ['API_TOKEN']}"}
