@@ -1,7 +1,8 @@
-from .services.gpt import query
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 
+from .services.util import log
+from .services.gpt import query
 load_dotenv()
 
 
@@ -15,33 +16,23 @@ def welcome():
 
 @app.post('/chat')
 def chat():
+    log('Request made to /chat, validating input')
     input = validate_input(request)
+    # The validate_input function returns a dictionary if the input is invalid
     if type(input) == dict:
+        log('Input validation failed, returning error')
         return input, 400
-
+    log('Input validated, querying the api')
     try:
         response = query(input)
-        return jsonify({'data': response})
+        return {'data': response}
+
     except Exception as e:
+        # I wanted to log the error for internal use, while returning a user friendly error message
         internal_msg = f"Had an error while querying the api, type: {type(e).__name__}, {e.args}"
+        log(internal_msg)
         user_msg = 'Something went wrong while querying the api, please try again'
-        print(internal_msg)
-        return jsonify({'error': user_msg}), 500
-    # try:
-    #     message = request.json['message']
-    # except KeyError:
-    #     return {'error': 'Please provide a message'}, 400
-    # try:
-    #     validate_input(message)
-    # except ValueError as e:
-    #     return {'error': e.args[0]}, 400
-    # try:
-    #     return {'data': query(message)}
-    # except Exception as e:
-    #     internal_msg = f"Had an error while querying the api, type: {type(e).__name__}, {e.args}"
-    #     user_msg = 'Something went wrong while querying the api, please try again'
-    #     print(internal_msg)
-    #     return {'error': user_msg}, 500
+        return {'error': user_msg}, 500
 
 
 def validate_input(request):
