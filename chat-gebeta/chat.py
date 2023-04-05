@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 
+from .services.gpt import get_response
+
 app = Flask(__name__)
 
 
@@ -10,6 +12,5 @@ def welcome():
 
 @app.post('/chat')
 def chat():
-    print(request.json["message"])
-
-    return
+    message = request.json['message']
+    return {'data': get_response(message)}
