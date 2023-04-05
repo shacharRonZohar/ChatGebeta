@@ -1,17 +1,18 @@
 from dotenv import load_dotenv
 
 
-
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from .schemas.chat import ChatInputSchema
 
+from .services.gpt import query
 from .services.logger import logger
 
 from .schemas.chat import ChatInputSchema
 # from .services.util import log
 bp = Blueprint('api', __name__, url_prefix='/chat')
+
 
 @bp.post('/')
 def chat():

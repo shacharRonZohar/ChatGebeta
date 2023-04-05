@@ -3,11 +3,12 @@ import os
 from flask import Flask
 
 from .chat import bp as chat_bp
-# import logging
-# from dotenv import load_dotenv
+import logging
+from dotenv import load_dotenv
 
 
 def create_app(test_config=None):
+    load_dotenv()
     # Create and configure the app.
     #  - instance_relative_config=True tells the app that if there are configuration files relative to the instance folder, they should override the default configuration.
     app = Flask(__name__, instance_relative_config=True)
@@ -30,12 +31,12 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # logging.basicConfig(level=logging.DEBUG)
-    
+    logging.basicConfig(level=logging.DEBUG)
+
     @app.get('/')
     def index():
         return {'data': 'Welcome to ChatGebeta, a ChatGPT api wrapper'}
-    
+
     app.register_blueprint(chat_bp, url_prefix='/api/chat')
 
     return app
