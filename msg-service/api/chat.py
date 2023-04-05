@@ -1,26 +1,19 @@
-import logging
-from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 
-from .services.gpt import query
+
+
+from flask import (
+    Blueprint, flash, g, redirect, render_template, request, session, url_for
+)
+from .schemas.chat import ChatInputSchema
+
 from .services.logger import logger
 
 from .schemas.chat import ChatInputSchema
 # from .services.util import log
+bp = Blueprint('api', __name__, url_prefix='/chat')
 
-logging.basicConfig(level=logging.DEBUG)
-load_dotenv()
-
-
-app = Flask(__name__)
-
-
-@app.get('/api')
-def welcome():
-    return {'data': 'Welcome to ChatGebeta, a ChatGPT api wrapper'}
-
-
-@app.post('/api/chat')
+@bp.post('/')
 def chat():
     logger.info('Request made to /chat, validating input')
     user_input = validate_input(request)
