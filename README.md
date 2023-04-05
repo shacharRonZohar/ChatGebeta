@@ -1,5 +1,11 @@
 # ChatGebeta - A ChatGPT wrapper
 
+This repository contains two branches - main, and basic, which are two almost identical api's, with one major diffrence.
+
+The main branch API makes it's calls to another api, which contains a self hosted gpt-2 model, which allows us better control over the responses, but takes mroe resources.
+
+The basic branch makes it's calls to a free, public gpt-2 api, which outsources the resposibilty of managing the model ourself.
+
 This is an api wrapper, using a free gpt-2 endpoint to provide organic responses to end users.
 
 ## Installation
