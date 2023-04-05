@@ -19,6 +19,7 @@ FROM python:3.7-alpine
 WORKDIR /code
 ENV FLASK_APP=api
 ENV FLASK_RUN_HOST=0.0.0.0
+ENV API_TOKEN = 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
 RUN apk add --no-cache gcc musl-dev linux-headers
 COPY requirements.txt requirements.txt
 RUN /usr/local/bin/python -m pip install --upgrade pip
