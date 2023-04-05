@@ -9,9 +9,10 @@ COPY . .
 # ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 RUN pip install --upgrade wheel & \
-    pip install -r requirements.txt & \
-    pip install --upgrade setuptools & \
-    pip install -e .
+    pip install --upgrade setuptools 
+#& \
+# pip install -r requirements.txt & \
+# pip install -e .
 
 RUN pip install waitress
 
