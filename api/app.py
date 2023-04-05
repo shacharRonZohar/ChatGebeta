@@ -15,12 +15,12 @@ load_dotenv()
 app = Flask(__name__)
 
 
-@app.get('/')
+@app.get('/api')
 def welcome():
     return {'data': 'Welcome to ChatGebeta, a ChatGPT api wrapper'}
 
 
-@app.post('/chat')
+@app.post('/api/chat')
 def chat():
     logger.info('Request made to /chat, validating input')
     user_input = validate_input(request)
