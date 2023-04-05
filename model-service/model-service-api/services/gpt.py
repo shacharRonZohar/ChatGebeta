@@ -2,17 +2,18 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 
 DEFAULT_GENERATION_SETTINGS = {
     # The maximum length of the sequence to be generated. With a lower value, the model will be less likely to generate long complete texts, but will be faster to generate texts.
-    "max_new_tokens": 150,
+    "max_new_tokens": 70,
     # The number of beams to use for beam search. Beam search is an algorithm that finds the most likely sequence of words.
     "num_beams": 5,
     # Make sure the model doesn't output the same text twice, by allowing it to stop generating the text early after it has repeated the same text.
     "no_repeat_ngram_size": 2,
-    "early_stopping": True
+    "early_stopping": True,
+    # "temperature": 0.7,
 }
 
 # gpt2 is the predecessor of gpt3 and is a smaller model.
 # This particular version is the smallest version of the model, conatining only 124M parameters.
-model_name = "gpt2"
+model_name = "EleutherAI/gpt-j-6b"
 # The tokenizer is used to convert the input text into a format that the model can understand, and to convert the model's output back into text.
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 # The model is the actual neural network that will be used to generate the text.
