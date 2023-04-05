@@ -1,14 +1,15 @@
 from os import environ
 from requests import post
 
-# See https://huggingface.co/inference-api for more information
-API_URL = 'https://api-inference.huggingface.co/models/gpt2'
+API_URL = 'http://localhost:5050/api/model/'
 
 headers = {'Authorization': f"Bearer {environ['API_TOKEN']}"}
 
 
 def query(payload):
+    endpoint = 'generate/'
+    url = f'{API_URL}{endpoint}'
     # The api returns a list with a single dictionary, containing the generated text
-    response = post(API_URL, headers=headers, json=payload).json()
+    response = post(url, headers=headers, json=payload).json()
     data = response[0]['generated_text']
     return {'user_input': payload, 'bot_response': data}

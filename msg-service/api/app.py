@@ -28,16 +28,16 @@ def chat():
     if isinstance(user_input, dict):
         logger.info('Input validation failed, returning error')
         return user_input, 400
-    logger.info('Input validated, querying the api')
+    logger.info('Input validated, querying the model')
     try:
         response = query(user_input)
         return {'data': response}
 
     except Exception as e:
         # I wanted to log the error for internal use, while returning a user friendly error message
-        internal_msg = f"Had an error while querying the api, type: {type(e).__name__}, {e.args}"
+        internal_msg = f"Had an error while querying the model, type: {type(e).__name__}, {e.args}"
         logger.exception(internal_msg)
-        user_msg = 'Something went wrong while querying the api, please try again'
+        user_msg = 'Something went wrong while querying the model, please try again'
         return {'error': user_msg}, 500
 
 
