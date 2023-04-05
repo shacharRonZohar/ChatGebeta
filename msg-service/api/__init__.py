@@ -6,7 +6,7 @@ from .chat import bp as chat_bp
 import logging
 
 
-def create_app(**args):
+def create_app(*args):
     print(args)
     # load_dotenv()
     # Create and configure the app.
