@@ -20,4 +20,4 @@ RUN pip install waitress
 COPY . .
 RUN pip install -e .
 
-CMD waitress-serve --port=$PORT api:create_app
+CMD waitress-serve --port=$PORT api:create_app()
