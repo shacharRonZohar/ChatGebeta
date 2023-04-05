@@ -24,8 +24,9 @@ def welcome():
 def chat():
     logger.info('Request made to /chat, validating input')
     user_input = validate_input(request)
+    print(user_input)
     # The validate_input function returns a dictionary if the input is invalid
-    if isinstance(user_input, dict):
+    if "error" in user_input:
         logger.info('Input validation failed, returning error')
         return user_input, 400
     logger.info('Input validated, querying the model')
@@ -50,4 +51,4 @@ def validate_input(request):
     if errors:
         return {'error': errors}
 
-    return input_data["message"]
+    return input_data

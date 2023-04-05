@@ -13,8 +13,8 @@ load_dotenv()
 
 
 app = Flask(__name__)
-
-@app.post('/api/model/generate')
+# /api/model/generate/
+@app.post('/api/model/generate/')
 def generate():
     input_data = validate_input(request)
 
