@@ -1,5 +1,5 @@
 import logging
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from dotenv import load_dotenv
 
 from .services.gpt import query
@@ -13,8 +13,6 @@ load_dotenv()
 
 
 app = Flask(__name__)
-print(__name__)
-
 
 @app.post('/api/model/generate')
 def generate():
