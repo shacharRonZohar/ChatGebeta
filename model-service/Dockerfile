@@ -34,5 +34,5 @@ RUN pip install waitress
 
 EXPOSE 8080
 
-CMD ["waitress-serve",  "--call 'model-service-api:create_app"]
+# CMD ["waitress-serve",  "--call 'model-service-api:create_app"]
 
