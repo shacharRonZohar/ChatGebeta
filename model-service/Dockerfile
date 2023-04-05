@@ -21,7 +21,7 @@
 
 # CMD ["waitress-serve",  "--call","model-service-api:create_app"]
 
-FROM python:3.7-alpine
+FROM python:3.7
 
 WORKDIR /app
 
