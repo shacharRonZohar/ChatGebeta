@@ -1,8 +1,6 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 DEFAULT_GENERATION_SETTINGS = {
-    # The maximum length of the sequence to be generated. With a lower value, the model will be less likely to generate long complete texts, but will be faster to generate texts.
-    "max_new_tokens": 70,
     # The number of beams to use for beam search. Beam search is an algorithm that finds the most likely sequence of words.
     "num_beams": 5,
     # Make sure the model doesn't output the same text twice, by allowing it to stop generating the text early after it has repeated the same text.
@@ -13,16 +11,16 @@ DEFAULT_GENERATION_SETTINGS = {
 
 # gpt2 is the predecessor of gpt3 and is a smaller model.
 # This particular version is the smallest version of the model, conatining only 124M parameters.
-model_name = "gpt2"
+MODEL_NAME = "gpt2"
 # The tokenizer is used to convert the input text into a format that the model can understand, and to convert the model's output back into text.
-tokenizer = AutoTokenizer.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 # The model is the actual neural network that will be used to generate the text.
+model = AutoModelForCausalLM.from_pretrained(MODEL_NAME)
 
-model = AutoModelForCausalLM.from_pretrained(model_name)
 
-
-def query(message):
-
+def query(message, max_response_length):
+    if not max_response_length:
+        max_response_length = 100
     # Create a sequence of numbers representing the message.
     encoded_input = tokenizer(message, return_tensors='pt')
 
@@ -32,6 +30,8 @@ def query(message):
         "input_ids": encoded_input["input_ids"],
         # The attention mask is used to tell the model which tokens are real and which are padding.
         "attention_mask": encoded_input["attention_mask"],
+        # The maximum length of the sequence to be generated. With a lower value, the model will be less likely to generate long complete texts, but will be faster to generate texts.
+        "max_new_tokens": max_response_length,
         **DEFAULT_GENERATION_SETTINGS
     }
 

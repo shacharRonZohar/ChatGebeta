@@ -7,7 +7,7 @@ from flask import (
 
 from .services.gpt import query
 
-from .schemas.chat import ChatInputSchema
+from .schemas.generation import GenerationInputSchema
 
 
 bp = Blueprint('model', __name__)
@@ -16,13 +16,17 @@ bp = Blueprint('model', __name__)
 @bp.post('/generate')
 def generate():
     input_data = validate_input(request)
-    if isinstance(input_data, dict):
+    if "error" in input_data:
         logging.info(f"Input validation failed, returning error: {input_data}")
         return input_data, 400
 
     logging.info(f"Input validated, querying the model with: {input_data}")
+    max_response_length = input_data.get("max_response_length", None)
+    print(input_data["message"])
+    print(max_response_length)
+    response = query(
+        message=input_data["message"], max_response_length=max_response_length)
     try:
-        response = query(input_data)
         return response
     except Exception as e:
         # I wanted to log the error for internal use, while returning a user friendly error message
@@ -37,8 +41,8 @@ def validate_input(request):
         return {'error': 'Request must be a JSON request'}
 
     input_data = request.get_json()
-    errors = ChatInputSchema().validate(input_data)
+    errors = GenerationInputSchema().validate(input_data)
     if errors:
         return {'error': errors}
 
-    return input_data["message"]
+    return input_data
