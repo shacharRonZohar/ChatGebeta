@@ -1,7 +1,6 @@
 FROM python:3.7-alpine
 
-RUN apk add --no-cache gcc musl-dev linux-headers
-RUN apk add --no-cache mariadb-dev mariadb-client
+RUN apk add --no-cache gcc musl-dev linux-headers mariadb-dev mariadb-client
 
 WORKDIR /code
 
@@ -20,7 +19,6 @@ EXPOSE 5000
 
 COPY . .
 
-RUN pip install -e . & \
-    flask --app api init-db
+RUN pip install -e . 
 
 CMD ["flask", "run" ,"--debug"]
