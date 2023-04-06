@@ -1,14 +1,14 @@
-name: msg-service CI
+name: model-service CI
 
 on:
   push:
     branches: ['main']
-    # paths:
-    #   - msg-service/**
+    paths:
+      - model-service/**
   pull_request:
     branches: ['main']
     paths:
-      - msg-service/**
+      - model-service/**
 
 jobs:
   build:
