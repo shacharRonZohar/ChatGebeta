@@ -17,6 +17,7 @@ def create_app(test_config=None):
     app.config.from_mapping(
         # A default secret key that should be overridden with a random value when deploying.
         SECRET_KEY='dev',
+        DEBUG=False,
         # MySQl_URL='mysql://root:ERshOmOfFNltDJcYF7BK@containers-us-west-73.railway.app:5829/railway',
         # DATABASE=os.path.join(app.instance_path, 'chat_gebeta.sqlite')
         MYSQL_HOST='containers-us-west-73.railway.app',
