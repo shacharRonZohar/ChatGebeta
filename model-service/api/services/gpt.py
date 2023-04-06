@@ -17,7 +17,6 @@ model_name = "gpt2"
 # The tokenizer is used to convert the input text into a format that the model can understand, and to convert the model's output back into text.
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 # The model is the actual neural network that will be used to generate the text.
-
 model = AutoModelForCausalLM.from_pretrained(model_name)
 
 
