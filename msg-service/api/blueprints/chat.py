@@ -6,8 +6,6 @@ from flask import (
 
 from ..services.gpt import query
 
-# from ..services.logger import logger
-
 from ..schemas.validation.main import validate_chat_input
 
 bp = Blueprint('api', __name__)

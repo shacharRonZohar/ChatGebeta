@@ -6,7 +6,7 @@ from flask import Flask
 from .blueprints.chat import bp as chat_bp
 from .blueprints.auth import bp as auth_bp
 
-from .db import init_db
+from .db import init_app
 
 
 def create_app(test_config=None):
@@ -28,7 +28,7 @@ def create_app(test_config=None):
     )
     logging.getLogger().addHandler(logging.StreamHandler())
 
-    init_db(app)
+    init_app(app)
 
     try:
         os.makedirs(app.instance_path)
