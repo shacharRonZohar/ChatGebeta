@@ -1,21 +1,3 @@
--- DROP TABLE IF EXISTS user;
--- DROP TABLE IF EXISTS chat;
-
--- CREATE TABLE user (
---     id INTEGER PRIMARY KEY AUTOINCREMENT,
---     username TEXT UNIQUE NOT NULL,
---     password TEXT NOT NULL,
--- );
-
--- CREATE TABLE chat (
---     id INTEGER PRIMARY KEY AUTOINCREMENT,
---     user_id INTEGER NOT NULL,
---     user_input TEXT NOT NULL,
---     bot_response TEXT NOT NULL,
---     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
---     FOREIGN KEY (user_id) REFERENCES user(id)
--- );
-
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS chat;
 
