@@ -7,7 +7,7 @@ from flask import (
 
 from .services.gpt import query
 
-from .schemas.main import GenerationInputSchema, validate_generation_input
+from .schemas.validation.main import GenerationInputSchema, validate_generation_input
 
 
 bp = Blueprint('model', __name__)
