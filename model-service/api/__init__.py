@@ -28,3 +28,8 @@ except OSError:
     pass
 # logging.basicConfig(level=logging.DEBUG)
 app.register_blueprint(model_bp, url_prefix='/api/model')
+
+
+@app.get('/')
+def index():
+    return 'Hello, World!'
