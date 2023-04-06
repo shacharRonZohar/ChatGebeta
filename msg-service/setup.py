@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='api',
+    name='ChatGebetaMsg',
     version='2.0.0',
     packages=find_packages(),
     include_package_data=True,
@@ -10,6 +10,10 @@ setup(
         'requests',
         'marshmallow',
         'waitress',
+    ],
+    template_files=[
+        'templates/**/*',
+        'static/**/*',
     ],
 
 )

@@ -1,1 +1,4 @@
+include ChatGebetaMsg/schema.sql
+graft ChatGebetaMsg/static
+graft ChatGebetaMsg/templates
 global-exclude *.pyc
