@@ -7,7 +7,7 @@ from flask import (
 
 from .services.gpt import query
 
-from .schemas.generation import GenerationInputSchema
+from .schemas.main import GenerationInputSchema, validate_generation_input
 
 
 bp = Blueprint('model', __name__)
@@ -15,18 +15,16 @@ bp = Blueprint('model', __name__)
 
 @bp.post('/generate')
 def generate():
-    input_data = validate_input(request)
+    input_data = validate_generation_input(request, GenerationInputSchema)
     if "error" in input_data:
         logging.info(f"Input validation failed, returning error: {input_data}")
         return input_data, 400
 
     logging.info(f"Input validated, querying the model with: {input_data}")
-    max_response_length = input_data.get("max_response_length", None)
-    print(input_data["message"])
-    print(max_response_length)
-    response = query(
-        message=input_data["message"], max_response_length=max_response_length)
     try:
+        max_response_length = input_data.get("max_response_length", None)
+        response = query(
+            message=input_data["message"], max_response_length=max_response_length)
         return response
     except Exception as e:
         # I wanted to log the error for internal use, while returning a user friendly error message
@@ -34,15 +32,3 @@ def generate():
         logging.exception(internal_msg)
         user_msg = 'Something went wrong while querying the model, please try again'
         return {'error': user_msg}, 500
-
-
-def validate_input(request):
-    if not request.is_json:
-        return {'error': 'Request must be a JSON request'}
-
-    input_data = request.get_json()
-    errors = GenerationInputSchema().validate(input_data)
-    if errors:
-        return {'error': errors}
-
-    return input_data
