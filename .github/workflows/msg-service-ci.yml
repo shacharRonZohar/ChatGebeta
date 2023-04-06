@@ -15,13 +15,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
       - name: Build the Docker image
-        uses: actions/checkout@v3
         uses: ./actions/service-build
         with:
           service-name: 'msg-service'
+      # - uses: actions/checkout@v3
       - name: Run the Docker image
-        uses: actions/checkout@v3
         uses: ./actions/service-run
         with:
           service-name: 'msg-service'
