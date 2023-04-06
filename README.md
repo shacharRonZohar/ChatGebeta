@@ -7,7 +7,7 @@ In order to run either of the branches, follow the Installation section in their
 
 This Readme will describe the API for the Main branch.
 
-The main branch conatins two API's - One public facing api, that recieves msgs from the user, and makes calls to the second API, which runs the input through a self hosted gpt-2 model.
+The main branch conatins two API's - One public facing api, that recieves msgs from the user, and makes calls to the second API, which runs the input through a self hosted gpt-2 model, ran by PyTorch.
 
 This system allows us better control over the responses, but takes considerably more "personal" resources.
 
@@ -66,23 +66,43 @@ And you're good to go!
 python -m venv ./your-env-name-here
 ```
 
-4. Install the required packages:
+5. Run the Enviroment:
 
-```bash
-pip install -r requirments.txt
+Windows:
+
+```powershell
+your-env-name-here\Scripts\activate
 ```
 
-5. Enter the api folder:
-   ```bash
-   cd api
-   ```
-6. Run The app:
+Mac \ Linux:
+
+```bash
+source your-env-name-here/bin/activate
+```
+
+5. Install the required packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+6. Install the app as a package:
+
+```bash
+pip install -e .
+```
+
+7. Run The app:
 
 ```bash
 flask --app api run --debug
 ```
 
-You should see several logs in your terminal, the major one being "Running on http://127.0.0.1:5000".
+You should see several logs in your terminal, the major one being
+
+```bash
+" * Running on http://127.0.0.1:5000".
+```
 
 And you're good to go!
 
@@ -115,7 +135,22 @@ def query(payload):
 
 ```
 
-We need to uncomment the "For local self hosted model" API_URL, and comment the "For self hosted model" API_URL, which will point it at the localhost, instead of the remote model.
+We need to uncomment the "For local self hosted model" API_URL, and comment the "For self hosted model" API_URL, which will point it at the localhost, instead of the remote model, it should looke like this:
+
+```python
+from requests import post
+
+# For local self hosted model
+API_URL = 'http://localhost:5050/api/model/'
+# For self hosted model
+# API_URL = 'https://chatgebeta-model-production.up.railway.app/api/model/'
+
+def query(payload):
+    endpoint = 'generate'
+    url = f'{API_URL}{endpoint}'
+    return post(url, json=payload).json()
+
+```
 
 Now go through the rest of the installation process as normal, you may need to rebuild your docker image if you used one.
 
