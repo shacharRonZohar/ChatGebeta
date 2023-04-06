@@ -1,5 +1,5 @@
-FROM python:3.7-alpine
-WORKDIR /code
+FROM python:3.7
+WORKDIR /App
 
 ENV VIRTUAL_ENV=/venv
 RUN python3 -m venv $VIRTUAL_ENV
