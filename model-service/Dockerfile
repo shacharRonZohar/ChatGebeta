@@ -11,14 +11,12 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 COPY requirements.txt requirements.txt
 RUN /usr/local/bin/python -m pip install --upgrade pip
-RUN pip install --upgrade wheel
 RUN pip install -r requirements.txt
-RUN pip install waitress
 
 COPY . .
 
 RUN python setup.py bdist_wheel
 RUN pip install dist/api-2.0.0-py3-none-any.whl
 
-CMD waitress-serve --port=$PORT --call api:create_app
+CMD waitress-serve --port $PORT --call api:create_app
 

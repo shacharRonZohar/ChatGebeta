@@ -9,7 +9,6 @@ setup(
         'Flask',
         'requests',
         'marshmallow',
-        'python-dotenv',
         'waitress',
     ],
 )
