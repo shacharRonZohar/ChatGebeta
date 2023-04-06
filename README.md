@@ -30,17 +30,31 @@ cd ChatGebeta
 python -m venv ./your-env-name-here
 ```
 
-4. Install the required packages:
+4. Run the Enviroment:
+
+Windows:
+
+```powershell
+your-env-name-here\Scripts\activate
+```
+
+Mac \ Linux:
+
+```bash
+source your-env-name-here/bin/activate
+```
+
+5. Install the required packages:
 
 ```bash
 pip install -r requirments.txt
 ```
 
-5. Enter the api folder:
+6. Enter the api folder:
    ```bash
    cd api
    ```
-6. Run The app:
+7. Run The app:
 
 ```bash
 flask run
