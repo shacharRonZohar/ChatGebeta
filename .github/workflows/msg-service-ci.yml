@@ -17,11 +17,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        uses: ./actions/service-build/action.yml
+        uses: ./actions/service-build/ # relative path to the action
         with:
           service-name: 'msg-service'
       # - uses: actions/checkout@v3
       - name: Run the Docker image
-        uses: ./actions/service-run
+        uses: ./actions/service-run/ # relative path to the action
         with:
           service-name: 'msg-service'
