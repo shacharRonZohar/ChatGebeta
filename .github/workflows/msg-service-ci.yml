@@ -2,23 +2,25 @@ name: msg-service CI
 
 on:
   push:
-    branches: [ "main" ]
-    paths: 
+    branches: ['main']
+    paths:
       - msg-service/**
   pull_request:
-    branches: [ "main" ]
-    paths: 
-        - msg-service/**
+    branches: ['main']
+    paths:
+      - msg-service/**
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image 
-      run: docker compose -f msg-service/docker-compose.yml up -d
-      
-      
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        uses: ../actions/service-build
+        with:
+          service-name: 'msg-service'
+      - name: Run the Docker image
+        uses: ../actions/service-run
+        with:
+          service-name: 'msg-service'
