@@ -12,12 +12,13 @@ COPY requirements.txt requirements.txt
 RUN /usr/local/bin/python -m pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-RUN pip install -e .
 
 EXPOSE 5000
 
 COPY . .
 
-RUN flask init-db
+RUN pip install -e .
+
+RUN flask --app api init-db
 
 CMD ["flask", "run" ,"--debug"]
