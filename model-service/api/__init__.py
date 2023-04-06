@@ -3,7 +3,6 @@ import os
 
 from flask import Flask
 
-
 from .model import bp as model_bp
 
 # Create and configure the app.
@@ -12,6 +11,7 @@ app = Flask(__name__, instance_relative_config=True)
 app.config.from_mapping(
     # A default secret key that should be overridden with a random value when deploying.
     SECRET_KEY='dev',
+    DATABASE=os.path.join(app.instance_path, 'chat_gebeta.sqlite')
 )
 
 app.config.from_pyfile('config.py', silent=True)
