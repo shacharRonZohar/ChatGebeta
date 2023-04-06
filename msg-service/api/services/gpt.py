@@ -11,6 +11,6 @@ API_URL = 'https://chatgebeta-model-production.up.railway.app/api/model/'
 
 
 def query(payload):
-    endpoint = 'generate/'
+    endpoint = 'generate'
     url = f'{API_URL}{endpoint}'
     return post(url, json=payload).json()
