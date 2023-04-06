@@ -15,7 +15,7 @@ bp = Blueprint('model', __name__)
 
 @bp.post('/generate')
 def generate():
-    input_data = validate_generation_input(request, GenerationInputSchema)
+    input_data = validate_generation_input(request)
     if "error" in input_data:
         logging.info(f"Input validation failed, returning error: {input_data}")
         return input_data, 400

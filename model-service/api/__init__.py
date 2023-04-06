@@ -18,7 +18,20 @@ def create_app(test_config=None):
 
     app.config.from_pyfile('config.py', silent=True)
 
-    logging.basicConfig(filename="chat-gebeta.log", level=logging.DEBUG)
+    # logging.basicConfig(filename="chat-gebeta.log", level=logging.DEBUG)
+    # Configure the logging module to log to a file & the standard output.
+    logging.basicConfig(
+        filename="./chat-gebeta.log",
+        level=logging.DEBUG,
+        format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s'
+    )
+    logging.getLogger().addHandler(logging.StreamHandler())
+    if test_config is None:
+        # Load the instance config, if it exists, when not testing.
+        app.config.from_pyfile('config.py', silent=True)
+    else:
+        # Load the test config if passed in.
+        app.config.from_mapping(test_config)
 
     try:
         os.makedirs(app.instance_path)

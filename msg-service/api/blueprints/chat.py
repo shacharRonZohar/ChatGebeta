@@ -25,6 +25,7 @@ def chat():
         return user_input, 400
     logger.info('Input validated, querying the model')
     try:
+        print(user_input)
         response = query(user_input)
         return {'data': response}
     except Exception as e:
