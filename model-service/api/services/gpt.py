@@ -38,13 +38,16 @@ def query(message):
     encoded_output = model.generate(**generation_args)
     # Get the decoded text from the model's output.
     output = tokenizer.decode(encoded_output[0], skip_special_tokens=True)
-    # The tokenizer returns both the user input and the bot response in the same string as diffrent lines,
-    # so we split the string into two vars that we later pack into a dictionary.
-    user_input, bot_response = output.split(F'{message}\n\n')
-    print(user_input)
-    print(bot_response)
+    # example_output = "Hi, how are you today?\n\n\n\nI'm so happy to be here.\n\n/ I've been working on this project for a while now, and I'm really excited about it. It's been a long time coming, but I feel like it's finally time for me to get back to work on the project. So, thank you so much for taking the time to answer my/,/"
+    # output = example_output
+
+    # # The tokenizer sometimes returns the message as part of the start of the output, and it can look wierd if it's a long sequence so we remove it if it's there.
+    if output.startswith(f'{message}\n\n'):
+        output = output[len(f'{message}\n\n'):]
+    # Then, we remove any wierd characters that might have been left over from the slice, or the model might has added to the start and end of the output, like newlines, commas, slashes, etc.
+    output = output.strip(',/\n\n')
 
     return {
-        "user_input": user_input,
-        "bot_response": bot_response
+        "user_input": message,
+        "bot_response": output
     }

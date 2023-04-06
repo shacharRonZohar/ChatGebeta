@@ -84,13 +84,13 @@ source your-env-name-here/bin/activate
 pip install -r requirements.txt
 ```
 
-6. Install the app as a package:
+7. Install the app as a package (optional):
 
 ```bash
 pip install -e .
 ```
 
-7. Run The app:
+8. Run The app:
 
 ```bash
 flask --app api run --debug

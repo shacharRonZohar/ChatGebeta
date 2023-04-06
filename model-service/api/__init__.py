@@ -1,6 +1,8 @@
+import logging
 import os
 
 from flask import Flask
+
 
 from .model import bp as model_bp
 
@@ -14,9 +16,11 @@ app.config.from_mapping(
 
 app.config.from_pyfile('config.py', silent=True)
 
+logging.basicConfig(filename="chat-gebeta.log", level=logging.DEBUG)
 
 try:
     os.makedirs(app.instance_path)
 except OSError:
     pass
+
 app.register_blueprint(model_bp, url_prefix='/api/model')

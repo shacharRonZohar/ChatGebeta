@@ -2,19 +2,21 @@
 # import logging
 
 # from dotenv import load_dotenv
+from flask import (
+    Blueprint, flash, g, redirect, render_template, request, session, url_for
+)
 
 from .services.gpt import query
 
 from .schemas.chat import ChatInputSchema
 
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
+
 bp = Blueprint('model', __name__)
 
 
 @bp.post('/generate')
 def generate():
+    # logger.info("Request received")
     input_data = validate_input(request)
 
     if isinstance(input_data, dict):
