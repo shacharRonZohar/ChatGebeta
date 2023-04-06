@@ -1,0 +1,24 @@
+name: msg-service CI
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: 
+      - msg-service/**
+  pull_request:
+    branches: [ "main" ]
+    paths: 
+        - msg-service/**
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image 
+      run: docker compose up -d
+      
+      
