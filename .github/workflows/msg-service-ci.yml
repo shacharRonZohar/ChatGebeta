@@ -17,11 +17,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        uses: ./.github/workflows/actions/service-build
+        uses: .github/workflows/actions/service-build
         with:
           service-name: 'msg-service'
       # - uses: actions/checkout@v3
       - name: Run the Docker image
-        uses: ./.github/workflows/actions/service-run
+        uses: .github/workflows/actions/service-run
         with:
           service-name: 'msg-service'
