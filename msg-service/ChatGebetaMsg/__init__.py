@@ -10,6 +10,7 @@ from .db import init_app
 
 
 def create_app(test_config=None):
+    print('Creating app...')
     # Create and configure the app.
     #  - instance_relative_config=True tells the app that if there are configuration files relative to the instance folder, they should override the default configuration.
     app = Flask(__name__, instance_relative_config=True)
