@@ -18,3 +18,4 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build the Docker image
         run: docker compose -f model-service/docker-compose.yml up -d
+        post-run: docker compose -f model-service/docker-compose.yml down

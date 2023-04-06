@@ -34,6 +34,7 @@ def query(message):
         "attention_mask": encoded_input["attention_mask"],
         **DEFAULT_GENERATION_SETTINGS
     }
+
     encoded_output = model.generate(**generation_args)
     # Get the decoded text from the model's output.
     output = tokenizer.decode(encoded_output[0], skip_special_tokens=True)
