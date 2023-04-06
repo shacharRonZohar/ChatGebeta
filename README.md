@@ -70,17 +70,17 @@ python -m venv ./your-env-name-here
 
    Windows:
 
-```powershell
-your-env-name-here\Scripts\activate
-```
+   ```powershell
+   your-env-name-here\Scripts\activate
+   ```
 
-    Mac \ Linux:
+   Mac \ Linux:
 
-```bash
-source your-env-name-here/bin/activate
-```
+   ```bash
+   source your-env-name-here/bin/activate
+   ```
 
-5. Install the required packages:
+6. Install the required packages:
 
 ```bash
 pip install -r requirements.txt
