@@ -14,6 +14,7 @@ app.config.from_mapping(
 
 app.config.from_pyfile('config.py', silent=True)
 
+
 try:
     os.makedirs(app.instance_path)
 except OSError:
