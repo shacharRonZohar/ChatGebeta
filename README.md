@@ -68,15 +68,13 @@ python -m venv ./your-env-name-here
 
 5. Run the Enviroment:
 
-   Windows:
-
 ```powershell
+Windows:
 your-env-name-here\Scripts\activate
 ```
 
-    Mac \ Linux:
-
 ```bash
+Mac \ Linux:
 source your-env-name-here/bin/activate
 ```
 
