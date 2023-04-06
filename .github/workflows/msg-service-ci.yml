@@ -12,7 +12,6 @@ on:
 
 jobs:
   build:
-    inputs:
     runs-on: ubuntu-latest
 
     steps:
