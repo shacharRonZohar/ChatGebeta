@@ -1,6 +1,4 @@
 version: '3.9'
 services:
-  model-service-api:
+  model-service-api-prod:
     build: .
-    ports:
-      - '5050:5050'

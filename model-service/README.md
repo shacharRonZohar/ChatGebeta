@@ -15,7 +15,9 @@ message: The text to generate text from.
 
 Returns a JSON object with the generated text.
 
-##### Example Request
+##### Example Request & Response
+
+Request:
 
 ```http
   POST /api/model/generate
@@ -27,7 +29,7 @@ Returns a JSON object with the generated text.
 }
 ```
 
-##### Example Response
+Response:
 
 ```json
 {
