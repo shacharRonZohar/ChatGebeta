@@ -10,7 +10,7 @@ from .schemas.chat import ChatInputSchema
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-bp = Blueprint('model', __name__, url_prefix='/model/')
+bp = Blueprint('model', __name__, url_prefix='/model')
 
 
 @bp.post('/generate/')
