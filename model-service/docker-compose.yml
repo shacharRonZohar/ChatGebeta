@@ -1,7 +1,6 @@
 version: '3.9'
 services:
-  web:
-    name: model-service-api
+  model-service-api:
     build: .
     ports:
       - '5050:5050'
