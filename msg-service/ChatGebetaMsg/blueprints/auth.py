@@ -8,7 +8,7 @@ from flask import (
 
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from ChatGebetaMsg.db import get_db
+from ChatGebetaMsg.models import db, User
 
 bp = Blueprint('auth', __name__)
 
@@ -18,25 +18,18 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db()
         error = None
 
         if not username:
             error = 'Username is required.'
         elif not password:
             error = 'Password is required.'
-        elif db.execute(
-            'SELECT id FROM user WHERE username = ?', (username,)
-        ).fetchone() is not None:
-            error = f'User {username} is already registered.'
-
         if error is None:
             try:
-                db.execute(
-                    'INSERT INTO user (username, password) VALUES (?, ?)',
-                    (username, generate_password_hash(password))
-                )
-                db.commit()
+                hashed_password = generate_password_hash(password)
+                user = User(username=username, password=hashed_password)
+                db.session.add(user)
+                db.session.commit()
             except db.IntegrityError:
                 error = f'User {username} is already registered.'
             else:
@@ -52,19 +45,17 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db()
         error = None
-        user = db.execute(
-            'SELECT * FROM user WHERE username = ?', (username,)
-        ).fetchone()
+        user = User.query.filter_by(username=username).first()
+        print(user.password)
 
-        if user is None or not check_password_hash(user['password'], password):
+        if user is None or not check_password_hash(user.password, password):
             error = 'Incorrect username or password.'
 
         if error is None:
             session.clear()
-            session['user_id'] = user['id']
-            return redirect(url_for('index'))
+            session['user_id'] = user.id
+            return redirect(url_for('chat.index'))
 
         flash(error)
 
@@ -74,7 +65,7 @@ def login():
 @bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('chat.index'))
 
 
 @bp.before_app_request
@@ -84,9 +75,7 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().execute(
-            'SELECT * FROM user WHERE id = ?', (user_id,)
-        ).fetchone()
+        g.user = User.query.filter_by(id=user_id).first()
 
 
 def login_required(view):

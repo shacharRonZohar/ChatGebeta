@@ -3,7 +3,7 @@
 {% endblock %} {% block content %}
 <div id="chat">
   <div id="messages"></div>
-  <form id="message-form">
+  <form id="message-form" method="post" action="./api/generate">
     <input type="text" id="message" />
     <input type="submit" value="Send" />
   </form>

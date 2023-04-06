@@ -2,11 +2,13 @@ import os
 import logging
 
 from flask import Flask, g
+from flask_sqlalchemy import SQLAlchemy
 
 from .blueprints.chat import bp as chat_bp
 from .blueprints.auth import bp as auth_bp
 
-from .db import init_app
+# from .db import init_app
+from ChatGebetaMsg.models import db
 
 
 def create_app(test_config=None):
@@ -20,22 +22,33 @@ def create_app(test_config=None):
         DEBUG=False,
         # MySQl_URL='mysql://root:ERshOmOfFNltDJcYF7BK@containers-us-west-73.railway.app:5829/railway',
         # DATABASE=os.path.join(app.instance_path, 'chat_gebeta.sqlite')
-        MYSQL_HOST='containers-us-west-73.railway.app',
-        MYSQL_USER='root',
-        MYSQL_PASSWORD='ERshOmOfFNltDJcYF7BK',
-        MYSQL_DB='railway',
-        MYSQL_PORT=5829,
-        MYSQL_CURSORCLASS="DictCursor"
+        # MYSQL_HOST='containers-us-west-73.railway.app',
+        # MYSQL_USER='root',
+        # MYSQL_PASSWORD='ERshOmOfFNltDJcYF7BK',
+        # MYSQL_DB='railway',
+        # MYSQL_PORT=5829,
+        # MYSQL_CURSORCLASS="DictCursor"
+        SQLALCHEMY_DATABASE_URI='mysql://root:ERshOmOfFNltDJcYF7BK@containers-us-west-73.railway.app:5829/railway',
     )
-
+    if test_config is None:
+        # Load the instance config, if it exists, when not testing.
+        app.config.from_pyfile('config.py', silent=True)
+    else:
+        # Load the test config if passed in.
+        app.config.from_mapping(test_config)
     # app.config['MySQL_HOST'] = 'containers-us-west-73.railway.app'
     # app.config['My']
 
     # g.db = MySQL(app)
+    db.init_app(app)
 
-    app.config.from_pyfile('config.py', silent=True)
+    # with app.app_context():
+    with app.app_context():
+        db.create_all()
 
-    init_app(app)
+    # app.app_context().push()
+    # db.init_app(app)
+    # init_app(app)
 
     logging.basicConfig(
         filename="./chat-gebeta.log",
@@ -43,15 +56,6 @@ def create_app(test_config=None):
         format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s'
     )
     logging.getLogger().addHandler(logging.StreamHandler())
-
-    init_app(app)
-
-    if test_config is None:
-        # Load the instance config, if it exists, when not testing.
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        # Load the test config if passed in.
-        app.config.from_mapping(test_config)
 
     try:
         os.makedirs(app.instance_path)

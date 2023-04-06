@@ -5,14 +5,13 @@ from flask import (
 )
 
 
-from ..schemas.validation.main import validate_chat_input
+from ChatGebetaMsg.validation.main import validate_chat_input
 
 from .auth import login_required
-from ..db import get_db
+from ChatGebetaMsg.models import db
+from ChatGebetaMsg.services.gpt import query
 
-from ..services.gpt import query
-
-bp = Blueprint('api', __name__)
+bp = Blueprint('chat', __name__)
 
 
 @bp.get('/')
@@ -22,7 +21,6 @@ def index():
 
 @bp.get('/<string:id>')
 def index_with_history(id):
-    db = get_db()
     history = db.execute(
         'SELECT FROM chat WHERE id = ?', (id,)
     ).fetchall()
