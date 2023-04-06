@@ -40,7 +40,9 @@ def query(message):
     output = tokenizer.decode(encoded_output[0], skip_special_tokens=True)
     # The tokenizer returns both the user input and the bot response in the same string as diffrent lines,
     # so we split the string into two vars that we later pack into a dictionary.
-    user_input, bot_response = output.split('\n\n')
+    user_input, bot_response = output.split(F'{message}\n\n')
+    print(user_input)
+    print(bot_response)
 
     return {
         "user_input": user_input,
