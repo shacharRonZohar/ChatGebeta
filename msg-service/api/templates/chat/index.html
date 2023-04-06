@@ -1,0 +1,11 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}Chat{% endblock %}</h1>
+{% endblock %} {% block content %}
+<div id="chat">
+  <div id="messages"></div>
+  <form id="message-form">
+    <input type="text" id="message" />
+    <input type="submit" value="Send" />
+  </form>
+</div>
+{% endblock %}

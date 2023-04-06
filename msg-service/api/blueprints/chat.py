@@ -4,23 +4,46 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 
-from ..services.gpt import query
 
 from ..schemas.validation.main import validate_chat_input
+
+from .auth import login_required
+from ..db import get_db
+
+from ..services.gpt import query
 
 bp = Blueprint('api', __name__)
 
 
 @bp.get('/')
 def index():
+    return render_template('chat/index.html')
+
+
+@bp.get('/<string:id>')
+def index_with_history(id):
+    db = get_db()
+    history = db.execute(
+        'SELECT FROM chat WHERE id = ?', (id,)
+    ).fetchall()
+    return render_template('chat/index.html', )
+
+
+@bp.get('/chat-history')
+@login_required
+def chat_history():
+    return render_template('chat/chat-history.html')
+
+
+@bp.get('/api')
+def api_index():
     return {'data': 'Welcome to ChatGebeta, a ChatGPT api wrapper'}
 
 
-@bp.post('/chat')
+@bp.post('/api/generate')
 def chat():
     logging.info('Request made to /chat, validating input')
     user_input = validate_chat_input(request)
-    print(user_input)
     # The validate_input function returns a dictionary if the input is invalid
     if "error" in user_input:
         logging.info('Input validation failed, returning error')

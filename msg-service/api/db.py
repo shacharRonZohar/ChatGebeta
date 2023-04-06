@@ -1,4 +1,4 @@
-import sqlite3
+from flask_mysqldb import MySQL
 
 import click
 from flask import current_app, g
@@ -11,9 +11,14 @@ def init_app(app):
 
 def init_db():
     db = get_db()
+    cursor = db.connection.cursor()
 
     with current_app.open_resource('schema.sql') as f:
-        db.executescript(f.read().decode('utf8'))
+        cursor.execute(f.read().decode('utf8'))
+        cursor.close()
+        db.connection.commit()
+        db.connection
+    # MySQL.
 
 
 @click.command('init-db')
@@ -24,11 +29,8 @@ def init_db_command():
 
 def get_db():
     if 'db' not in g:
-        g.db = sqlite3.connect(
-            current_app.config['DATABASE'],
-            detect_types=sqlite3.PARSE_DECLTYPES
-        )
-        g.db.row_factory = sqlite3.Row
+        # print(current_app.config['MySQL_HOST'])
+        g.db = MySQL(current_app)
 
     return g.db
 
@@ -36,5 +38,5 @@ def get_db():
 def close_db(e=None):
     db = g.pop('db', None)
 
-    if db is not None:
-        db.close()
+    # if db is not None:
+    #     MySQL().connection.
