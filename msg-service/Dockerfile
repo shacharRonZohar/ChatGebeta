@@ -16,7 +16,7 @@ RUN python setup.py bdist_wheel
 RUN pip install ./dist/api-2.0.0-py3-none-any.whl
 
 
-RUN flask init_db
+RUN flask --app api init_db
 
 CMD waitress-serve --port $PORT --call api:create_app 
 # RUN pip install -e .
