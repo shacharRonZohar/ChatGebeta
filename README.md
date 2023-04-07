@@ -31,7 +31,7 @@ The msg API also contains a frontend served statically using templates, demonstr
 Here are the links for the deployed API's, feel free to give them a few hits and see how they feel before diving into
 the code!
 
-- https://chatgebeta-msg-service.up.railway.app/api
+- https://chatgebeta-msg-service.up.railway.app/
 - https://chatgebeta-model-service.up.railway.app/api
 
 ## Run Locally
