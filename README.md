@@ -2,8 +2,8 @@
 
 This is an api wrapper, using a gpt-2 model to provide organic responses to end users.
 
-This repository contains two branches - main, and basic, which are two almost identical api's, with one major diffrence.
-In order to run either of the branches, follow the Installation section in their respective README
+This repository contains two branches - main, and basic, which have two distinct API's in them - the basic branch contains the minimal working version answering the requirments of the task, and the main branch contains a robust API with powerfull capabilities.
+In order to run either of the branches, follow the Installation section in their respective README.
 
 This Readme will describe the API for the Main branch.
 
@@ -16,6 +16,8 @@ While both API's are hosted on Railway and publicly availabe, and can also both 
 If for some reason you wish to do so, follow the "Model Self Hosting" instructions in the Run Locally section of the main branch.
 
 You can find API refrences in the README's inside the respective API folder.
+
+The msg API also contains a frontend demonstrating the app's abilities.
 
 #### API's Root URL's:
 
@@ -33,7 +35,7 @@ Alternatively, you can find the DIY instructions below
 
 ### General
 
-1. Clonse the repository
+1. Clone the repository
 2. Enter the repository & Msg Service directory:
 
 ```bash
