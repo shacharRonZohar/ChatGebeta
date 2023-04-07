@@ -41,13 +41,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.5/axios.min.js"></script>
 <script>
   msgs = []
-
-  onWelcome()
   async function onGetBotResponse(ev, msgsHistory) {
     ev.preventDefault()
     const { value } = document.querySelector('.message-input')
-    // const msgsContainer = document.querySelector('.message-container')
-
     try {
       const elLoadingContainer = document.querySelector('.loading-container')
       elLoadingContainer.innerHTML = 'Loading...'
@@ -71,10 +67,6 @@
       elErrorContainer.innerHTML = ''
 
       elMsg.scrollIntoView({ behavior: 'smooth' })
-
-      // msgs.push(newMsg)
-
-      // renderMsgs()
     } catch (err) {
       console.log(err)
       document.querySelector('.loading-container').innerHTML = ''
@@ -82,41 +74,6 @@
       elErrorContainer.innerHTML = 'Something went wrong, please try again'
       elErrorContainer.scrollIntoView({ behavior: 'smooth' })
     }
-  }
-
-  // function renderMsgs() {
-  //   document.querySelector('.loading-container').innerHTML = ''
-  //   document.querySelector('.error-container').innerHTML = ''
-  //   msgsContainer.innerHTML = 'Loading...'
-  //   msgsContainer.innerHTML =
-  //     msgs
-  //       .map(({ user_input, bot_response }) => {
-  //         return `<article class="message">
-  //               <div class="user-input">${user_input}</div>
-  //               <div class="bot-response">${bot_response}</div>
-  //             </article>`
-  //       })
-  //       .join('') +
-  //     `<div class="error-container"></div>
-  //   <div class="loading-container"></div>`
-
-  //   document.querySelector('.message-input').value = ''
-  //   const elMsgs = document.querySelectorAll('.message')
-  //   elMsgs[elMsgs.length - 1].scrollIntoView({ behavior: 'smooth' })
-  // }
-
-  async function onWelcome() {
-    const {
-      data: { msg },
-    } = await axios.get('/chat/api')
-    const welcomeHTML = `<h2>${msg}</h2>`
-    const elUserMsg = document.querySelector('.user-msg')
-    elUserMsg.innerHTML = welcomeHTML
-    elUserMsg.classList.add('open')
-
-    setTimeout(() => {
-      elUserMsg.classList.remove('open')
-    }, 3000)
   }
 
   function _getUrl(endpoint) {

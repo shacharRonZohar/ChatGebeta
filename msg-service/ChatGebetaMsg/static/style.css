@@ -30,9 +30,6 @@ a {
 .content {
   display: flex;
   flex-direction: column;
-  /* flex-grow: 1; */
-  /* justify-content: space-between; */
-  /* height: 100%; */
 }
 .main-header {
   display: flex;
@@ -73,6 +70,7 @@ a {
 }
 
 .user-msg {
+  pointer-events: none;
   opacity: 0;
   position: fixed;
   display: flex;
@@ -100,11 +98,8 @@ a {
 }
 
 .msg-container {
-  /* flex-grow: 1; */
   display: flex;
   flex-direction: column;
-  /* align-items: flex-end; */
-  /* justify-content: flex-end; */
   padding: 10px;
   overflow-y: scroll;
 }
@@ -114,10 +109,6 @@ a {
   justify-content: flex-start;
   padding: 20px 10px;
   color: black;
-  /* width: 200px;
-  height: 200px; */
-  /* left: 50%; */
-  /* transform: translateX(-50%); */
   background-color: #a08282;
   transition: all 0.5s ease-in-out;
 }
@@ -128,10 +119,6 @@ a {
   justify-content: flex-start;
   padding: 20px 10px;
   color: black;
-  /* width: 200px;
-  height: 200px; */
-  /* left: 50%; */
-  /* transform: translateX(-50%); */
   background-color: #82a09c;
   transition: all 0.5s ease-in-out;
 }
