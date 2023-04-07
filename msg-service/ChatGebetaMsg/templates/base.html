@@ -45,7 +45,7 @@
       document.querySelector('.loading-container').innerHTML = 'Loading...'
       // The url is on the same host, so we grab the current url and append the api endpoint
       const data = { message: value }
-      const endpoint = '/api/generate'
+      const endpoint = 'api/generate'
       const apiURl = _getUrl(endpoint)
       console.log(apiURl)
       const res = await axios.post(apiURl, data)
