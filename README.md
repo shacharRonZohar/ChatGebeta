@@ -17,7 +17,7 @@ If for some reason you wish to do so, follow the "Model Self Hosting" instructio
 
 You can find API refrences in the README's inside the respective API folder.
 
-The msg API also contains a frontend demonstrating the app's abilities.
+The msg API also contains a frontend served statically using templates, demonstrating the app's abilities.
 
 #### API's Root URL's:
 

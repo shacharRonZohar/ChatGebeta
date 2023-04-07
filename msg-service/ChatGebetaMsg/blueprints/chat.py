@@ -7,7 +7,8 @@ from flask import (
 from ChatGebetaMsg.validation.main import validate_chat_input
 
 from .auth import login_required
-from ChatGebetaMsg.models import db, Chat, ChatMsg
+# from ChatGebetaMsg.models import db, Chat, ChatMsg
+from ChatGebetaMsg.services.db import save_new_chat, get_chat_by_id, get_chat_by_user_id
 from ChatGebetaMsg.services.gpt import query
 
 bp = Blueprint('chat', __name__)
@@ -18,31 +19,25 @@ def index(msgs=None):
     return render_template('chat/index.html', msgs=msgs)
 
 
-@bp.get('/<string:id>')
 @login_required
+@bp.get('/<string:id>')
 def index_with_history(id):
     try:
-        msgs = Chat.query.filter_by(id=id).first().msgs
-        return index(msgs=msgs)
+        return index(msgs=get_msgs(id=id))
     except AttributeError:
         return redirect(url_for('chat.index'))
 
 
-@bp.get('/history')
 @login_required
+@bp.get('/history')
 def chat_history():
-    chats = Chat.query.filter_by(user_id=g.user.id).all()
+    chats = get_chat_by_user_id(user_id=g.user.id)
     return render_template('chat/chat-history.html', chats=chats)
 
 
 @bp.get('/api')
 def api_index():
     return {'msg': 'Welcome to ChatGebeta, a ChatGPT api wrapper'}
-
-
-@bp.post('/<string:id>/api/generate')
-def chat_with_history(id):
-    return chat(chat_id=id)
 
 
 @bp.post('/api/generate')
@@ -61,7 +56,7 @@ def chat(chat_id=None):
             'message': message,
         })
         if 'user' in g:
-            _save_new_chat(response=response, chat_id=chat_id)
+            save_new_chat(response=response, chat_id=chat_id)
         return response
     except Exception as e:
         # I wanted to log the error for internal use, while returning a user friendly error message
@@ -71,20 +66,19 @@ def chat(chat_id=None):
         return {'error': user_msg}, 500
 
 
-def _save_new_chat(response, chat_id=None):
-    _add_chat(response) if chat_id is None else _add_chat_msg(
-        response, chat_id)
+@login_required
+@bp.post('/<string:id>/api/generate')
+def chat_with_history(id):
+    return chat(chat_id=id)
 
 
-def _add_chat(response):
-    new_chat = Chat(user_id=g.user.id)
-    db.session.add(new_chat)
-    db.session.commit()
-    _add_chat_msg(response, new_chat.id)
+@login_required
+@bp.get('/api/history')
+def get_chats():
+    return get_chat_by_user_id(user_id=g.user.id)
 
 
-def _add_chat_msg(response, chat_id):
-    new_msg = ChatMsg(
-        chat_id=chat_id, user_input=response['user_input'], bot_response=response['bot_response'])
-    db.session.add(new_msg)
-    db.session.commit()
+@login_required
+@bp.get('/<string:id>/api/msgs')
+def get_msgs(id):
+    return get_chat_by_id(id=id).msgs

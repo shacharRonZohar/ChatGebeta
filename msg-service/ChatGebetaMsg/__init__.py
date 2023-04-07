@@ -7,7 +7,6 @@ from flask_sqlalchemy import SQLAlchemy
 from .blueprints.chat import bp as chat_bp
 from .blueprints.auth import bp as auth_bp
 
-# from .db import init_app
 from ChatGebetaMsg.models import db
 
 
