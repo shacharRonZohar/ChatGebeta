@@ -56,8 +56,14 @@
       const generationEndpoint = 'api/generate'
       const apiURl = _getUrl(generationEndpoint)
       const {
-        data: { user_input, bot_response },
+        data: {
+          response: { user_input, bot_response },
+          chat_id,
+        },
       } = await axios.post(apiURl, data)
+      if (chat_id) {
+        window.location += `/${chat_id}`
+      }
       const elMsg = document.createElement('article')
       elMsg.classList.add('message')
       elMsg.innerHTML = `
