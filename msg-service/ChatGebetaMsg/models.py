@@ -23,16 +23,16 @@ class Chat(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     created_at = db.Column(
         db.DateTime, default=datetime.datetime.utcnow, nullable=False)
-    msgs = db.relationship('Msg', backref='chat', lazy=True)
+    msgs = db.relationship('ChatMsg', backref='chat', lazy=True)
 
     def __repr__(self):
         return f'Chat {self.id}'
 
-    def __init__(self, user_id):
-        self.user_id = user_id
+    # def __init__(self, user_id):
+    #     self.user_id = user_id
 
 
-class Msg(db.Model):
+class ChatMsg(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     chat_id = db.Column(db.Integer, db.ForeignKey('chat.id'), nullable=False)
     user_input = db.Column(db.String(1024), nullable=False)
@@ -43,6 +43,7 @@ class Msg(db.Model):
     def __repr__(self):
         return f'Msg {self.id}, {self.user_input}, {self.bot_response}'
 
-    def __init__(self, chat_id, msg):
-        self.chat_id = chat_id
-        self.msg = msg
+    # def __init__(self, chat_id, user_input, bot_response):
+    #     self.chat_id = chat_id
+    #     self.user_input = user_input
+    #     self.bot_response = bot_response

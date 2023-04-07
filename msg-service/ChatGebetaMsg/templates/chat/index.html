@@ -2,10 +2,17 @@
 <h1>{% block title %}Chat{% endblock %}</h1>
 {% endblock %} {% block content %}
 <div id="chat">
-  <div id="messages"></div>
-  <form id="message-form" method="post" action="./api/generate">
-    <input type="text" id="message" />
-    <input type="submit" value="Send" />
+  {% if msgs %} {% for msg in msgs %}
+  <article class="message">
+    <div class="user-input">{{msg['user_input']}}</div>
+    <div class="bot-response">{{msg['bot_response']}}</div>
+  </article>
+  {% endfor %} {% endif %}
+  <div class="messages-list"></div>
+  <div class="error-continer"></div>
+  <form id="message-form" onsubmit="onGetBotResponse(event)">
+    <input type="text" class="message-input" />
+    <button>Send</button>
   </form>
 </div>
 {% endblock %}
