@@ -11,7 +11,7 @@ def get_chat_by_user_id(user_id):
 
 
 def save_new_chat(response, chat_id=None):
-    _add_chat(response) if chat_id is None else _add_chat_msg(
+    return _add_chat(response) if chat_id is None else _add_chat_msg(
         response, chat_id)
 
 
