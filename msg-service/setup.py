@@ -11,6 +11,7 @@ setup(
         'marshmallow',
         'waitress',
         'flask-SQLAlchemy',
+        'pymysql',
     ],
     template_files=[
         'templates/**/*',

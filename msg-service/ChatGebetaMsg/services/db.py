@@ -1,5 +1,3 @@
-from flask_sqlalchemy import SQLAlchemy
-
 from ChatGebetaMsg.models import db, Chat, ChatMsg
 
 

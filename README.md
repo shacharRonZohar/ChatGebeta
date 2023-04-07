@@ -95,7 +95,7 @@ pip install -e .
 8. Run The app:
 
 ```bash
-flask --app api run --debug
+flask --app ChatGebetaMsg run --debug
 ```
 
 You should see several logs in your terminal, the major one being
@@ -116,7 +116,7 @@ The installation of the packages \ env should take a while depending on your mac
 
 We need to point the API_URL in the Msg Service API to the local address of the Model Service API, so let's open the following file in our favourite text editor \ IDE:
 
-your\path\here\ChatGebeta\msg-service\api\services\gpt.py
+your\path\here\ChatGebeta\msg-service\ChatGebetaMsg\services\gpt.py
 
 You shoule see the following code:
 
