@@ -2,11 +2,11 @@ name: model-service CI
 
 on:
   push:
-    branches: ['main']
+    branches: [ 'main' ]
     paths:
       - model-service/**
   pull_request:
-    branches: ['main']
+    branches: [ 'main' ]
     paths:
       - model-service/**
 
