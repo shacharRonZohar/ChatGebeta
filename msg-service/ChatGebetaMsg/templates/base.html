@@ -87,6 +87,9 @@
   function _getUrl(endpoint) {
     //  get the entire route, without the host
     const currUrl = window.location.href.split('/').slice(3).join('/')
-    return `/${currUrl}/${endpoint}`
+    url = `/${currUrl}`
+    if (!url.endsWith('/')) url += '/'
+
+    return `${url}${endpoint}`
   }
 </script>
