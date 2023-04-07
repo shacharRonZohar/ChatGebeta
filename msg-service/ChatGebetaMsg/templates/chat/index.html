@@ -2,18 +2,18 @@
 <h1>{% block title %}Chat{% endblock %}</h1>
 {% endblock %} {% block content %}
 <div id="chat">
-  {% if msgs %} {% for msg in msgs %}
-  <article class="message">
-    <div class="user-input">{{msg['user_input']}}</div>
-    <div class="bot-response">{{msg['bot_response']}}</div>
-  </article>
-  {% endfor %} {% endif %}
-  <div class="messages-list"></div>
-  <div class="error-continer"></div>
-  <div class="loading-container"></div>
-  <form id="message-form" onsubmit="onGetBotResponse(event)">
-    <input type="text" class="message-input" />
-    <button>Send</button>
-  </form>
+    {% if msgs %} {% for msg in msgs %}
+    <article class="message">
+        <div class="user-input">{{msg['user_input']}}</div>
+        <div class="bot-response">{{msg['bot_response']}}</div>
+    </article>
+    {% endfor %} {% endif %}
+    <div class="messages-list"></div>
+    <div class="error-continer"></div>
+    <div class="loading-container"></div>
+    <form id="message-form" onsubmit="onGetBotResponse(event)">
+        <input class="message-input" type="text"/>
+        <button>Send</button>
+    </form>
 </div>
 {% endblock %}

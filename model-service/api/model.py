@@ -2,13 +2,11 @@ import logging
 
 # from dotenv import load_dotenv
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, request
 )
 
+from .schemas.validation.main import validate_generation_input
 from .services.gpt import query
-
-from .schemas.validation.main import GenerationInputSchema, validate_generation_input
-
 
 bp = Blueprint('model', __name__)
 

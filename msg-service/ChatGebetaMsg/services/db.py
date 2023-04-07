@@ -1,9 +1,9 @@
-from flask import g
 from ChatGebetaMsg.models import db, Chat, ChatMsg
+from flask import g
 
 
-def get_chat_by_id(id):
-    return Chat.query.filter_by(id=id).first()
+def get_chat_by_id(id, user_id):
+    return Chat.query.filter_by(id=id, user_id=user_id).first()
 
 
 def get_chat_by_user_id(user_id):

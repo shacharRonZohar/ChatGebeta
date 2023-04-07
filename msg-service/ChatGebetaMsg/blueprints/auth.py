@@ -2,13 +2,11 @@
 # and I didn't want to reinvent the wheel. I made small, mostly semantic changes to it, to make it works with my project and my needs.
 import functools
 
+from ChatGebetaMsg.models import db, User
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-
 from werkzeug.security import check_password_hash, generate_password_hash
-
-from ChatGebetaMsg.models import db, User
 
 bp = Blueprint('auth', __name__)
 

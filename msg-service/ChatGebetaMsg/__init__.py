@@ -1,13 +1,11 @@
-import os
 import logging
-
-from flask import Flask, g, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
-
-from .blueprints.chat import bp as chat_bp
-from .blueprints.auth import bp as auth_bp
+import os
 
 from ChatGebetaMsg.models import db
+from flask import Flask, redirect, url_for
+
+from .blueprints.auth import bp as auth_bp
+from .blueprints.chat import bp as chat_bp
 
 
 def create_app(test_config=None):

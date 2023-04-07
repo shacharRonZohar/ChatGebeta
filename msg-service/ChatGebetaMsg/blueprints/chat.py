@@ -1,15 +1,14 @@
 import logging
 
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
-
-from ChatGebetaMsg.validation.main import validate_chat_input
-
-from .auth import login_required
 # from ChatGebetaMsg.models import db, Chat, ChatMsg
 from ChatGebetaMsg.services.db import save_new_chat, get_chat_by_id, get_chat_by_user_id
 from ChatGebetaMsg.services.gpt import query
+from ChatGebetaMsg.validation.main import validate_chat_input
+from flask import (
+    Blueprint, g, redirect, render_template, request, url_for
+)
+
+from .auth import login_required
 
 bp = Blueprint('chat', __name__)
 
@@ -81,4 +80,8 @@ def get_chats():
 @login_required
 @bp.get('/<string:id>/api/msgs')
 def get_msgs(id):
-    return get_chat_by_id(id=id).msgs
+    chat = get_chat_by_id(id=id, user_id=g.user.id)
+    if chat is None:
+        return redirect(url_for('chat.index'))
+
+    return chat.msgs
