@@ -28,9 +28,16 @@ def index_with_history(id):
         return redirect(url_for('chat.index'))
 
 
+@bp.get('/history')
+@login_required
+def chat_history():
+    chats = Chat.query.filter_by(user_id=g.user.id).all()
+    return render_template('chat/chat-history.html', chats=chats)
+
+
 @bp.get('/api')
 def api_index():
-    return {'data': 'Welcome to ChatGebeta, a ChatGPT api wrapper'}
+    return {'msg': 'Welcome to ChatGebeta, a ChatGPT api wrapper'}
 
 
 @bp.post('/<string:id>/api/generate')

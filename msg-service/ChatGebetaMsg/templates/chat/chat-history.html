@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}Chat History{% endblock %}</h1>
+{% endblock %} {% block content %}
+<div id="chat-history">
+  {% if chats %} {% for chat in chats %}
+  <article class="chat">
+    <a href="{{ url_for('chat.index_with_history',id=chat.id)}}">
+      <div class="created-at">
+        <span>Created at: </span>
+        <span>{{chat.created_at}}</span>
+        <span>Id:</span>
+        <span>{{chat.id}}</span>
+      </div>
+    </a>
+  </article>
+  {% endfor %} {% else %}
+  <div class="no-chats">No chats yet</div>
+  {% endif %}
+  <div class="error-continer"></div>
+</div>
+{% endblock %}
