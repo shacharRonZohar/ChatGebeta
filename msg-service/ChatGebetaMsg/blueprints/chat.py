@@ -54,7 +54,7 @@ def chat(chat_id=None):
         response = query({
             'message': message,
         })
-        if 'user' in g:
+        if g.user is not None:
             save_new_chat(response=response, chat_id=chat_id)
         return response
     except Exception as e:
