@@ -84,11 +84,8 @@
   }
 
   function _getUrl(endpoint) {
-    const currUrl = window.location.href
-
-    // Railway was fucking me over for some reason, this is a stupid workaround bandaid that works.
-    const actualUrl = currUrl.includes('railway') ? currUrl.replace('http','https') : currUrl
-
-    return currUrl + endpoint
+  //  get the entire route, without the host
+    const currUrl = window.location.href.split('/').slice(3).join('/')
+    return `/${currUrl}${endpoint}`
   }
 </script>
