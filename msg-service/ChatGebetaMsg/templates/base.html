@@ -84,9 +84,10 @@
   }
 
   function _getUrl(endpoint) {
-    // Railway was fucking me over for some reason, this is a stupid workaround that works.
-    const currUrl = window.location.href.replace('http','https')
-    console.log(currUrl)
+    const currUrl = window.location.href
+
+    // Railway was fucking me over for some reason, this is a stupid workaround bandaid that works.
+    const actualUrl = currUrl.includes('railway') ? currUrl.replace('http','https') : currUrl
 
     return currUrl + endpoint
   }
