@@ -1,87 +1,122 @@
 <!DOCTYPE html>
 <title>{% block title %}{% endblock %} - ChatGebeta</title>
-<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
-<nav>
-    <h1>ChatGebeta</h1>
-    <ul class="nav-bar">
+<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" />
+<div class="user-msg"></div>
+<div class="app">
+  <header class="main-header">
+    <h1 class="logo">ChatGebeta</h1>
+    {% if g.user %}
+    <div class="user-greet">
+      <h3>Hi, {{ g.user['username'] }}!</h3>
+    </div>
+    {% endif %}
+    <nav class="main-nav">
+      <ul class="nav-list">
         {% if g.user %}
         <li>
-            <span>{{ g.user['username'] }}</span>
-        </li>
-        <li>
-            <a href="{{ url_for('auth.logout') }}">Log Out</a>
+          <a href="{{ url_for('auth.logout') }}">Log Out</a>
         </li>
 
         <li>
-            <a href="{{ url_for('chat.chat_history') }}">Your History</a>
+          <a href="{{ url_for('chat.chat_history') }}">Your History</a>
         </li>
         {% else %}
         <li>
-            <a href="{{ url_for('auth.register') }}">Register</a>
+          <a href="{{ url_for('auth.register') }}">Register</a>
         </li>
         <li>
-            <a href="{{ url_for('auth.login') }}">Log In</a>
+          <a href="{{ url_for('auth.login') }}">Log In</a>
         </li>
         {% endif %}
-    </ul>
-</nav>
-<section class="content">
+      </ul>
+    </nav>
+  </header>
+  <section class="content">
     <header>{% block header %}{% endblock %}</header>
     {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>
     {% endfor %} {% block content %}{% endblock %}
-</section>
+  </section>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.5/axios.min.js"></script>
 <script>
   msgs = []
 
   onWelcome()
-  async function onGetBotResponse(ev) {
+  async function onGetBotResponse(ev, msgsHistory) {
     ev.preventDefault()
     const { value } = document.querySelector('.message-input')
-    const msgsContainer = document.querySelector('.messages-list')
+    // const msgsContainer = document.querySelector('.message-container')
 
     try {
-      document.querySelector('.loading-container').innerHTML = 'Loading...'
+      const elLoadingContainer = document.querySelector('.loading-container')
+      elLoadingContainer.innerHTML = 'Loading...'
+      elLoadingContainer.scrollIntoView({ behavior: 'smooth' })
       // The url is on the same host, so we grab the current url and append the api endpoint
       const data = { message: value }
-      const endpoint = 'api/generate'
-      const apiURl = _getUrl(endpoint)
-      const res = await axios.post(apiURl, data)
-      msgs.push(res.data)
-      renderMsgs()
+      const generationEndpoint = 'api/generate'
+      const apiURl = _getUrl(generationEndpoint)
+      const {
+        data: { user_input, bot_response },
+      } = await axios.post(apiURl, data)
+      const elMsg = document.createElement('article')
+      elMsg.classList.add('message')
+      elMsg.innerHTML = `
+      <div class="user-input">${user_input}</div>
+      <div class="bot-response">${bot_response}</div>
+      `
+      document.querySelector('.msg-container').appendChild(elMsg)
+      elLoadingContainer.innerHTML = ''
+      const elErrorContainer = document.querySelector('.error-container')
+      elErrorContainer.innerHTML = ''
+
+      elMsg.scrollIntoView({ behavior: 'smooth' })
+
+      // msgs.push(newMsg)
+
+      // renderMsgs()
     } catch (err) {
       console.log(err)
       document.querySelector('.loading-container').innerHTML = ''
-      document.querySelector('.error-continer').innerHTML = 'Something went wrong, please try again'
+      const elErrorContainer = document.querySelector('.error-container')
+      elErrorContainer.innerHTML = 'Something went wrong, please try again'
+      elErrorContainer.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
-  function renderMsgs() {
-    document.querySelector('.loading-container').innerHTML = ''
-    document.querySelector('.error-continer').innerHTML = ''
-    const msgsContainer = document.querySelector('.messages-list')
-    msgsContainer.innerHTML = 'Loading...'
-    msgsContainer.innerHTML = msgs.map(({ user_input, bot_response }) => {
-      return `<article class="message">
-                <div class="user-input">${user_input}</div>
-                <div class="bot-response">${bot_response}</div>
-              </article>`
-    })
-  }
+  // function renderMsgs() {
+  //   document.querySelector('.loading-container').innerHTML = ''
+  //   document.querySelector('.error-container').innerHTML = ''
+  //   msgsContainer.innerHTML = 'Loading...'
+  //   msgsContainer.innerHTML =
+  //     msgs
+  //       .map(({ user_input, bot_response }) => {
+  //         return `<article class="message">
+  //               <div class="user-input">${user_input}</div>
+  //               <div class="bot-response">${bot_response}</div>
+  //             </article>`
+  //       })
+  //       .join('') +
+  //     `<div class="error-container"></div>
+  //   <div class="loading-container"></div>`
+
+  //   document.querySelector('.message-input').value = ''
+  //   const elMsgs = document.querySelectorAll('.message')
+  //   elMsgs[elMsgs.length - 1].scrollIntoView({ behavior: 'smooth' })
+  // }
 
   async function onWelcome() {
     const {
       data: { msg },
     } = await axios.get('/chat/api')
-    const elWelcome = document.createElement('li')
-    elWelcome.innerHTML = `
-    <li>
-      <div>${msg}</div>
-      <a href="/chat">Click here to start a new chat</a>
-    </li>
-    `
-    document.querySelector('.nav-bar').appendChild(elWelcome)
+    const welcomeHTML = `<h2>${msg}</h2>`
+    const elUserMsg = document.querySelector('.user-msg')
+    elUserMsg.innerHTML = welcomeHTML
+    elUserMsg.classList.add('open')
+
+    setTimeout(() => {
+      elUserMsg.classList.remove('open')
+    }, 3000)
   }
 
   function _getUrl(endpoint) {
@@ -92,5 +127,4 @@
 
     return `${url}${endpoint}`
   }
-
 </script>

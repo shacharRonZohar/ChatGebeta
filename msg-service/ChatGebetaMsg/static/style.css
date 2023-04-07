@@ -1,0 +1,141 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  grid-template-columns: minmax(100px, auto) minmax(600px, 1fr) minmax(100px, auto);
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  background: #f4f4f4;
+  min-height: 100dvh;
+}
+
+body > * {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  /* flex-grow: 1; */
+  /* justify-content: space-between; */
+  /* height: 100%; */
+}
+.main-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  color: #c73131;
+}
+.nav-list {
+  height: 100%;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-list li {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+}
+
+.user-greet {
+  /* Something is off centre about this */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  color: black;
+}
+
+.user-greet h3 {
+  font-weight: unset;
+  margin: 0;
+}
+
+.user-msg {
+  opacity: 0;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  color: black;
+  width: 200px;
+  height: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #c73131;
+  transition: all 0.5s ease-in-out;
+}
+
+.chat-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+
+  max-height: calc(100dvh - 200px);
+}
+
+.msg-container {
+  /* flex-grow: 1; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-end; */
+  /* justify-content: flex-end; */
+  padding: 10px;
+  overflow-y: scroll;
+}
+.bot-response {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px 10px;
+  color: black;
+  /* width: 200px;
+  height: 200px; */
+  /* left: 50%; */
+  /* transform: translateX(-50%); */
+  background-color: #a08282;
+  transition: all 0.5s ease-in-out;
+}
+
+.user-input {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px 10px;
+  color: black;
+  /* width: 200px;
+  height: 200px; */
+  /* left: 50%; */
+  /* transform: translateX(-50%); */
+  background-color: #82a09c;
+  transition: all 0.5s ease-in-out;
+}
+
+.open {
+  opacity: 1;
+}

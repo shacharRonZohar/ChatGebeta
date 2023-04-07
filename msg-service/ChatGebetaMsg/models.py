@@ -26,8 +26,8 @@ class Chat(db.Model):
         db.DateTime, default=datetime.datetime.utcnow, nullable=False)
     msgs = db.relationship('ChatMsg', backref='chat', lazy=True)
 
-    def __repr__(self):
-        return f'Chat {self.id}'
+    # def __repr__(self):
+    #     return f'Chat {self.id}'
 
     # def __init__(self, user_id):
     #     self.user_id = user_id
@@ -41,8 +41,8 @@ class ChatMsg(db.Model):
     created_at = db.Column(
         db.DateTime, default=datetime.datetime.utcnow, nullable=False)
 
-    def __repr__(self):
-        return f'Msg {self.id}, {self.user_input}, {self.bot_response}'
+    # def __repr__(self):
+    #     return f'Msg {self.id}, {self.user_input}, {self.bot_response}'
 
     # def __init__(self, chat_id, user_input, bot_response):
     #     self.chat_id = chat_id

@@ -83,5 +83,5 @@ def get_msgs(id):
     chat = get_chat_by_id(id=id, user_id=g.user.id)
     if chat is None:
         return redirect(url_for('chat.index'))
-
+    print(chat.msgs)
     return chat.msgs
