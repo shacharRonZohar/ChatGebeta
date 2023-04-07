@@ -18,7 +18,7 @@ def create_app(test_config=None):
     app.config.from_mapping(
         # A default secret key that should be overridden with a random value when deploying.
         SECRET_KEY='dev',
-        SQLALCHEMY_DATABASE_URI='mysql://root:ERshOmOfFNltDJcYF7BK@containers-us-west-73.railway.app:5829/railway',
+        SQLALCHEMY_DATABASE_URI='mysql+pymysql://root:ERshOmOfFNltDJcYF7BK@containers-us-west-73.railway.app:5829/railway',
     )
     if test_config is None:
         # Load the instance config, if it exists, when not testing.
