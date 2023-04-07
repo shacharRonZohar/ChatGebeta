@@ -36,9 +36,9 @@
       msgsContainer.innerHTML = 'Loading...'
       // The url is on the same host, so we can use relative path
       const data = { message: value, id }
-      console.log(data)
-      const res = await axios.post('./api/generate', data)
-      console.log(res.data)
+      const currUrl = window.location.href
+      console.log(currUrl)
+      const res = await axios.post(`${currUrl}/api/generate`, data)
       msgs.push(res.data)
       renderMsgs()
     } catch (err) {

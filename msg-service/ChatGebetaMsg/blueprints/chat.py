@@ -4,7 +4,6 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 
-
 from ChatGebetaMsg.validation.main import validate_chat_input
 
 from .auth import login_required
@@ -15,27 +14,18 @@ bp = Blueprint('chat', __name__)
 
 
 @bp.get('/')
-def index():
-    return render_template('chat/index.html')
+def index(msgs=None):
+    return render_template('chat/index.html', msgs=msgs)
 
 
 @bp.get('/<string:id>')
 @login_required
 def index_with_history(id):
-    # history = db.execute(
-    #     'SELECT FROM chat WHERE id = ?', (id,)
-    # ).fetchall()
     try:
         msgs = Chat.query.filter_by(id=id).first().msgs
-        return render_template('chat/index.html', msgs=msgs, id=id)
+        return index(msgs=msgs)
     except AttributeError:
-        return render_template('chat/index.html')
-
-
-# @bp.get('/chat-history')
-# @login_required
-# def chat_history():
-#     return render_template('chat/chat-history.html')
+        return redirect(url_for('chat.index'))
 
 
 @bp.get('/api')
@@ -43,15 +33,13 @@ def api_index():
     return {'data': 'Welcome to ChatGebeta, a ChatGPT api wrapper'}
 
 
-# @bp.get('/api/<string:id>')
-# @login_required
-# def get_chat_history(id):
-#     history =
-#     return {'data': history}
+@bp.post('/<string:id>/api/generate')
+def chat_with_history(id):
+    return chat(chat_id=id)
 
 
 @bp.post('/api/generate')
-def chat():
+def chat(chat_id=None):
     logging.getLogger().info('Request made to /chat, validating input')
     user_input = validate_chat_input(request)
     # The validate_input function returns a dictionary if the input is invalid
@@ -61,7 +49,6 @@ def chat():
     logging.info('Input validated, querying the model')
     try:
         message = user_input['message']
-        chat_id = user_input['id'] if 'id' in user_input else None
 
         response = query({
             'message': message,
