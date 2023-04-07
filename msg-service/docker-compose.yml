@@ -2,5 +2,3 @@ version: '3.9'
 services:
   chat-gebeta-msg:
     build: .
-    ports:
-      - '5000:5000'
