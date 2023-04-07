@@ -1,3 +1,4 @@
+from flask import g
 from ChatGebetaMsg.models import db, Chat, ChatMsg
 
 

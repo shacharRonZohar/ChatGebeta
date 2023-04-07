@@ -47,7 +47,6 @@
       const data = { message: value }
       const endpoint = 'api/generate'
       const apiURl = _getUrl(endpoint)
-      console.log(apiURl)
       const res = await axios.post(apiURl, data)
       msgs.push(res.data)
       renderMsgs()
@@ -60,6 +59,7 @@
 
   function renderMsgs() {
     document.querySelector('.loading-container').innerHTML = ''
+    document.querySelector('.error-continer').innerHTML = ''
     const msgsContainer = document.querySelector('.messages-list')
     msgsContainer.innerHTML = 'Loading...'
     msgsContainer.innerHTML = msgs.map(({ user_input, bot_response }) => {
