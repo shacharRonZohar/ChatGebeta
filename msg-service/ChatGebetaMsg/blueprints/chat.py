@@ -49,6 +49,7 @@ def chat(chat_id=None):
         return user_input, 400
     logging.info('Input validated, querying the model')
     try:
+        new_chat_id = None
         message = user_input['message']
 
         response = query({
@@ -56,9 +57,6 @@ def chat(chat_id=None):
         })
         if g.user is not None:
             new_chat_id = save_new_chat(response=response, chat_id=chat_id)
-        # This didn't work, I don't know why
-        #     if new_chat_id is not None:
-        #         return redirect(url_for('chat.index_with_history', id=new_chat_id))
         return {'response': response, 'chat_id': new_chat_id}
     except Exception as e:
         # I wanted to log the error for internal use, while returning a user friendly error message
