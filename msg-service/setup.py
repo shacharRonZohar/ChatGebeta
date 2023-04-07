@@ -10,6 +10,7 @@ setup(
         'requests',
         'marshmallow',
         'waitress',
+        'flask-SQLAlchemy',
     ],
     template_files=[
         'templates/**/*',
