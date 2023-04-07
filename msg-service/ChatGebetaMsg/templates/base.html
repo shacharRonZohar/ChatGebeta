@@ -51,7 +51,7 @@
       renderMsgs()
     } catch (err) {
       console.log(err)
-      document.querySelector('.loading-container').value = ''
+      document.querySelector('.loading-container').innerHTML = ''
       document.querySelector('.error-continer').innerHTML = 'Something went wrong, please try again'
     }
   }
