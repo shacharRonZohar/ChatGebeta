@@ -55,8 +55,8 @@ def chat(chat_id=None):
             'message': message,
         })
         if g.user is not None:
-            save_new_chat(response=response, chat_id=chat_id)
-        return response
+            new_chat_id = save_new_chat(response=response, chat_id=chat_id)
+        return {'response': response, 'chat_id': new_chat_id if g.user is not None else None}
     except Exception as e:
         # I wanted to log the error for internal use, while returning a user friendly error message
         internal_msg = f"Had an error while querying the model, type: {type(e).__name__}, {e.args}"

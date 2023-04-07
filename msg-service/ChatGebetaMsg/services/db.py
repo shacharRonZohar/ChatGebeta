@@ -20,6 +20,7 @@ def _add_chat(response):
     db.session.add(new_chat)
     db.session.commit()
     _add_chat_msg(response, new_chat.id)
+    return new_chat.id
 
 
 def _add_chat_msg(response, chat_id):
