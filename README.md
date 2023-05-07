@@ -14,6 +14,7 @@ second API, which runs the input through a self hosted gpt-2 model, ran by PyTor
 
 This system allows us better control over the responses, but takes considerably more "personal" resources.
 
+IMPORTANT: I took down the hosted project, self hosting the model cost too much per month to justify for a hobby project.
 While both API's are hosted on Railway and publicly availabe, and can also both be ran locally, I recommend against
 running the Model Service API, as it is about 10GB in size when fully installed and ran (because it stores the entire
 gpt2 model locally), and the code in the Msg Service API is designed by default to talk with the deployed Model service
